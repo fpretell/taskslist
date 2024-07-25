@@ -1,0 +1,109 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+TABLE Products {
+    ProductID uniqueidentifier
+    ProductCode varchar
+    ProductName VARCHAR
+    Description text
+    Price decimal
+    StockQuantity INTEGER
+}
+
+TABLE Categories {
+    CategoryID uniqueidentifier
+    CategoryName varchar
+}
+
+TABLE Product_Category {
+    ProductID integer
+    CategoryID integer
+}
+
+TABLE Suppliers {
+    SupplierID uniqueidentifier
+    SupplierName varchar
+    Address TEXT
+}
+
+TABLE Supplier_Product {
+    SupplierID uniqueidentifier
+    ProductID uniqueidentifier
+}
+
+TABLE Departments {
+    DepartmentID uniqueidentifier
+    DepartmentName VARCHAR
+}
+
+TABLE Employees {
+    EmployeeID uniqueidentifier
+    EmployeeName varchar
+    Position varchar
+    Salary decimal
+    HireDate date
+    DepartmentID integer
+}
+
+TABLE Customers {
+    CustomerID uniqueidentifier
+    CustomerName varchar
+    Address TEXT
+    Phone VARCHAR
+    Email VARCHAR
+    LoyaltyCard bool
+}
+
+TABLE Sales {
+    SaleID uniqueidentifier
+    InvoiceNumber VARCHAR
+    SaleDate datetime
+    CustomerID integer
+    EmployeeID int
+    TotalAmount DECIMAL(10, 2)
+}
+
+TABLE SaleDetails {
+    SaleDetailID uniqueidentifier
+    SaleID INT
+    ProductID INT
+    Quantity INT
+    UnitPrice DECIMAL(10, 2)
+    TotalPrice DECIMAL(10, 2) 
+    
+}
+
+TABLE Promotions {
+    PromotionID uniqueidentifier
+    Description TEXT
+    StartDate DATE
+    EndDate DATE
+    DiscountAmount DECIMAL(10, 2)
+}
+
+TABLE Promotion_Products {
+    PromotionID INT
+    ProductID INT
+}
+
+TABLE Promotion_Categories {
+    PromotionID INT
+    CategoryID INT
+}
+
+Ref: Product_Category.CategoryID > Products.ProductID
+Ref: Product_Category.ProductID > Categories.CategoryID
+Ref:  Supplier_Product.ProductID > Products.ProductID
+Ref:  Supplier_Product.SupplierID > Suppliers.SupplierID
+Ref:  Employees.DepartmentID > Departments.DepartmentID
+Ref:  Sales.CustomerID > Customers.CustomerID
+Ref:  Sales.EmployeeID > Employees.EmployeeID
+Ref:  SaleDetails.SaleID > Sales.SaleID
+Ref:  SaleDetails.ProductID > Products.ProductID
+Ref:  Promotion_Products.PromotionID > Promotions.PromotionID
+Ref:  Promotion_Products.ProductID > Products.ProductID
+Ref:  Promotion_Categories.CategoryID > Categories.CategoryID
+Ref:  Promotion_Categories.PromotionID > Promotions.PromotionID
+
+
+
